@@ -1,0 +1,11 @@
+# File Managed by Puppet
+
+server {
+  listen <%= @port %>;
+  root  <%= @vhost_docroot %>;
+  server_name <%= @name %> <%= @serveraliases %>;
+
+  access_log  <%= @log_dir %>/<%= @name %>.access.log;
+  error_log  <%= @log_dir %>/<%= @name %>.error.log;
+
+}

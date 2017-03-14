@@ -1,0 +1,27 @@
+# File Managed by Puppet
+user <%= @process_user %>;
+worker_processes <%= @processorcount %>;
+
+error_log  <%= @log_dir %>/error.log;
+pid        <%= @pid_file %>;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+  server_tokens off;
+  include       <%= @config_dir %>/mime.types;
+  default_type  application/octet-stream;
+
+  access_log  <%= @log_dir %>/access.log;
+
+  sendfile    on;
+  #tcp_nopush  on;
+  tcp_nodelay        on;
+
+  include <%= @confd %>/*.conf;
+<% if @vdir_enable %>
+  include <%= @vdir_enable %>/*;
+<% end %>
+}
